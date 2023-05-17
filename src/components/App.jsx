@@ -1,16 +1,29 @@
-export const App = () => {
+import { useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+import { Section } from './Section/Section';
+import ContactForm from './ContactForm/ContactForm';
+import { ContactsList } from './ContactList/ContactList';
+import { Filter } from './Filter/Filter';
+import { AppSection } from './App.styled';
+
+export default function App() {
+  const contacts = useSelector(getContacts);
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <AppSection>
+      <Section title="Phonebook">
+        <ContactForm />
+      </Section>
+
+      <Section title="Contacts">
+        {contacts.length > 0 && (
+          <>
+            <Filter />
+            <ContactsList />
+          </>
+        )}
+        {contacts.length === 0 && <p>There is no contacts</p>}
+      </Section>
+    </AppSection>
   );
-};
+}
