@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getIsLoading } from 'redux/selectors';
+import { fetchContacts } from 'redux/operations';
 import { Section } from './Section/Section';
 import ContactForm from './ContactForm/ContactForm';
 import { ContactsList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { Loader } from './Loader/Loader';
 import { AppSection } from './App.styled';
-import { fetchContacts } from 'redux/operations';
 
 export default function App() {
   const dispatch = useDispatch();

@@ -10,7 +10,6 @@ import {
 
 export const ContactsList = () => {
   const dispatch = useDispatch();
-
   const contactsList = useSelector(getFilteredContacts);
 
   const handledDeleteContact = contactId => {
