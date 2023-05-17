@@ -7,10 +7,10 @@ import { addContact } from '../../redux/contactsSlice';
 
 export default function ContactForm({ onSubmit }) {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
   const nameInputId = nanoid();
-  const numberInputId = nanoid();
+  const phoneInputId = nanoid();
 
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
@@ -22,8 +22,8 @@ export default function ContactForm({ onSubmit }) {
       case 'name':
         setName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
       default:
         break;
@@ -37,7 +37,7 @@ export default function ContactForm({ onSubmit }) {
       alert(`${name} is already in contacts.`);
       return;
     }
-    dispatch(addContact(name, number));
+    dispatch(addContact(name, phone));
     resetContactForm();
   };
 
@@ -49,7 +49,7 @@ export default function ContactForm({ onSubmit }) {
 
   const resetContactForm = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -66,12 +66,12 @@ export default function ContactForm({ onSubmit }) {
         required
       />
 
-      <label htmlFor={numberInputId}>Number</label>
+      <label htmlFor={phoneInputId}>Number</label>
       <input
         type="tel"
-        name="number"
-        value={number}
-        id={numberInputId}
+        name="phone"
+        value={phone}
+        id={phoneInputId}
         onChange={handleChange}
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"

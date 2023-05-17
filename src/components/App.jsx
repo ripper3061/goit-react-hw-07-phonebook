@@ -1,13 +1,20 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { Section } from './Section/Section';
 import ContactForm from './ContactForm/ContactForm';
 import { ContactsList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { AppSection } from './App.styled';
+import { fetchContacts } from 'redux/operations';
 
 export default function App() {
+  const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <AppSection>
