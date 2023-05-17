@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getContacts } from 'redux/selectors';
+import { getContacts, getIsLoading } from 'redux/selectors';
 import { Section } from './Section/Section';
 import ContactForm from './ContactForm/ContactForm';
 import { ContactsList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
+import { Loader } from './Loader/Loader';
 import { AppSection } from './App.styled';
 import { fetchContacts } from 'redux/operations';
 
 export default function App() {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
+  const isLoading = useSelector(getIsLoading);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -29,7 +31,8 @@ export default function App() {
             <ContactsList />
           </>
         )}
-        {contacts.length === 0 && <p>There is no contacts</p>}
+        {!isLoading && contacts.length === 0 && <p>There is no contacts</p>}
+        <Loader />
       </Section>
     </AppSection>
   );
