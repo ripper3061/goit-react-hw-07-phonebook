@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getContacts, getFilteredName } from 'redux/selectors';
-// import { deleteContact } from 'redux/contactsSlice';
+import { getFilteredContacts } from 'redux/selectors';
+import { deleteContact } from 'redux/operations';
 import {
   ListOfContacts,
   ListItem,
@@ -9,17 +9,12 @@ import {
 } from './ContactList.styled';
 
 export const ContactsList = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilteredName);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const contactsList = contacts.filter(({ name }) =>
-    name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const contactsList = useSelector(getFilteredContacts);
 
   const handledDeleteContact = contactId => {
-    console.log('delete');
-    // dispatch(deleteContact(contactId));
+    dispatch(deleteContact(contactId));
   };
 
   return (
