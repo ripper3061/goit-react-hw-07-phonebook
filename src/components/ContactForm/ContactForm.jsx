@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
+import Notiflix from 'notiflix';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { addContact } from '../../redux/operations';
@@ -34,7 +35,7 @@ export default function ContactForm() {
     e.preventDefault();
 
     if (checkContactsName(contacts, name)) {
-      alert(`${name} is already in contacts.`);
+      Notiflix.Notify.warning(`${name} is already in contacts`);
       return;
     }
     dispatch(addContact({ name, phone }));

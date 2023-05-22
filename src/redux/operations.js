@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 axios.defaults.baseURL = 'https://64648993043c103502bbfa0a.mockapi.io/';
@@ -11,7 +12,9 @@ export const fetchContacts = createAsyncThunk(
       const response = await axios.get('/contacts');
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(`${errorMessage}`);
+      return thunkAPI.rejectWithValue(
+        Notiflix.Notify.failure(`${errorMessage}`)
+      );
     }
   }
 );
@@ -21,9 +24,12 @@ export const addContact = createAsyncThunk(
   async (contact, thunkAPI) => {
     try {
       const response = await axios.post('/contacts', contact);
+      Notiflix.Notify.success('Contact added');
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(`${errorMessage}`);
+      return thunkAPI.rejectWithValue(
+        Notiflix.Notify.failure(`${errorMessage}`)
+      );
     }
   }
 );
@@ -34,9 +40,12 @@ export const deleteContact = createAsyncThunk(
     try {
       console.log(contactId);
       const response = await axios.delete(`/contacts/${contactId}`);
+      Notiflix.Notify.success('Contact deleted');
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(`${errorMessage}`);
+      return thunkAPI.rejectWithValue(
+        Notiflix.Notify.failure(`${errorMessage}`)
+      );
     }
   }
 );
